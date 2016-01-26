@@ -1,5 +1,7 @@
 #include <iostream>
 
+#pragma comment(lib, "../lib/SDL2.dll")
+
 int main() {
 	std::cout << "hello" << std::endl;
 
