@@ -1,24 +1,24 @@
-#pragma comment(lib, "SDL2.lib")
-#pragma comment(lib, "SDL2main.lib")
+#include "SDL.h"   /* All SDL App's need this */
+#include <stdio.h>
 
-#include <iostream>
-#include "SDL.h"
+int main(int argc, char *argv[]) {
 
-int main() {
-	
+	printf("Initializing SDL.\n");
+
+	/* Initialize defaults, Video and Audio */
 	if ((SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) == -1)) {
 		printf("Could not initialize SDL: %s.\n", SDL_GetError());
 		exit(-1);
 	}
 
-	
-	std::cout << "hello" << std::endl;
+	printf("SDL initialized.\n");
 
+	printf("Quiting SDL.\n");
 
-
-	int x; std::cin >> x;
-
+	/* Shutdown all subsystems */
 	SDL_Quit();
 
-	return 0;
+	printf("Quiting....\n");
+
+	exit(0);
 }
