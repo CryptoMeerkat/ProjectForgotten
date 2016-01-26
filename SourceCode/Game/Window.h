@@ -1,10 +1,18 @@
-
 #include "SDL.h"
 
+///-------------------------------------------------------------------------------------------------
+/// <summary>A window class handling the SDL window stuff.</summary>
+///-------------------------------------------------------------------------------------------------
 class Window {
 
 	public:
 
+	///-------------------------------------------------------------------------------------------------
+	/// <summary>Constructor for a single window.</summary>
+	///
+	/// <param name="width"> The width.</param>
+	/// <param name="height">The height.</param>
+	///-------------------------------------------------------------------------------------------------
 	Window(int width = 0, int height = 0) {
 		this->window = nullptr;
 		this->mouseFocus = false;
@@ -18,13 +26,13 @@ class Window {
 		initalize();
 	}
 
+	///-------------------------------------------------------------------------------------------------
+	/// <summary>Destructor cleans up the window context for OpenGL
+	/// 		 and the window of SDL itself.</summary>
+	///-------------------------------------------------------------------------------------------------
 	~Window() {
 		SDL_GL_DeleteContext(windowContext);
 		SDL_DestroyWindow(window);
-	}
-
-	const SDL_GLContext& getContext() {
-		return windowContext;
 	}
 
 	///-------------------------------------------------------------------------------------------------
@@ -34,6 +42,11 @@ class Window {
 		SDL_GL_SwapWindow(window);
 	}
 
+	///-------------------------------------------------------------------------------------------------
+	/// <summary>Query if this object is initialized.</summary>
+	///
+	/// <returns>true if initialized, false if not.</returns>
+	///-------------------------------------------------------------------------------------------------
 	bool isInitialized() {
 		return initialized;
 	}
