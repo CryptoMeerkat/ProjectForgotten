@@ -13,6 +13,8 @@
 
 #include "Window.h"
 
+#include "Mesh.h"
+
 
 #include "LoadShaders.h"
 extern GLuint LoadShaders(ShaderInfo *shaderinfo);
@@ -31,10 +33,14 @@ GLuint vao;
 GLuint vbo;
 GLuint ebo;
 
+Mesh* triangle;
+
 GLint render_model_matrix_loc;
 GLint render_projection_matrix_loc;
 
 void Initialize() {
+
+	triangle = Mesh::GenerateTriangle();
 
 	ShaderInfo shader_info[] = {
 		{GL_VERTEX_SHADER, "primitive_restart.vs.glsl"},
@@ -48,48 +54,48 @@ void Initialize() {
 	render_model_matrix_loc = glGetUniformLocation(render_prog, "model_matrix");
 	render_projection_matrix_loc = glGetUniformLocation(render_prog, "projection_matrix");
 
-	// A single triangle
-	static const GLfloat vertex_positions[] = {
-		-1.0f, -1.0f, 0.0f, 1.0f,
-		1.0f, -1.0f, 0.0f, 1.0f,
-		-1.0f, 1.0f, 0.0f, 1.0f,
-		-1.0f, -1.0f, 0.0f, 1.0f,
-	};
+	//// A single triangle
+	//static const GLfloat vertex_positions[] = {
+	//	-1.0f, -1.0f, 0.0f, 1.0f,
+	//	1.0f, -1.0f, 0.0f, 1.0f,
+	//	-1.0f, 1.0f, 0.0f, 1.0f,
+	//	-1.0f, -1.0f, 0.0f, 1.0f,
+	//};
 
-	// Color for each vertex
-	static const GLfloat vertex_colors[] = {
-		1.0f, 1.0f, 1.0f, 1.0f,
-		1.0f, 1.0f, 0.0f, 1.0f,
-		1.0f, 0.0f, 1.0f, 1.0f,
-		0.0f, 1.0f, 1.0f, 1.0f
-	};
+	//// Color for each vertex
+	//static const GLfloat vertex_colors[] = {
+	//	1.0f, 1.0f, 1.0f, 1.0f,
+	//	1.0f, 1.0f, 0.0f, 1.0f,
+	//	1.0f, 0.0f, 1.0f, 1.0f,
+	//	0.0f, 1.0f, 1.0f, 1.0f
+	//};
 
-	// Indices for the triangle strips
-	static const GLushort vertex_indices[] = {
-		0, 1, 2
-	};
+	//// Indices for the triangle strips
+	//static const GLushort vertex_indices[] = {
+	//	0, 1, 2
+	//};
 
-	// Set up the element array buffer
-	glGenBuffers(1, &ebo);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(vertex_indices), vertex_indices, GL_STATIC_DRAW);
+	//// Set up the element array buffer
+	//glGenBuffers(1, &ebo);
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+	//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(vertex_indices), vertex_indices, GL_STATIC_DRAW);
 
-	// Set up the vertex attributes
-	glGenVertexArrays(1, &vao);
-	glBindVertexArray(vao);
+	//// Set up the vertex attributes
+	//glGenVertexArrays(1, &vao);
+	//glBindVertexArray(vao);
 
-	glGenBuffers(1, &vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertex_positions) +sizeof(vertex_colors), NULL, GL_STATIC_DRAW);
-	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertex_positions), vertex_positions);
-	glBufferSubData(GL_ARRAY_BUFFER, sizeof(vertex_positions), sizeof(vertex_colors), vertex_colors);
+	//glGenBuffers(1, &vbo);
+	//glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	//glBufferData(GL_ARRAY_BUFFER, sizeof(vertex_positions) +sizeof(vertex_colors), NULL, GL_STATIC_DRAW);
+	//glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertex_positions), vertex_positions);
+	//glBufferSubData(GL_ARRAY_BUFFER, sizeof(vertex_positions), sizeof(vertex_colors), vertex_colors);
 
-	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, NULL);
-	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, (const GLvoid *)sizeof(vertex_positions));
-	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1);
+	//glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, NULL);
+	//glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, (const GLvoid *)sizeof(vertex_positions));
+	//glEnableVertexAttribArray(0);
+	//glEnableVertexAttribArray(1);
 
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	//glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 }
 
 void Display() {
@@ -109,28 +115,31 @@ void Display() {
 	glUniformMatrix4fv(render_projection_matrix_loc, 1, GL_FALSE, glm::value_ptr(projection_matrix));
 
 	// Set up for a glDrawElements call
-	glBindVertexArray(vao);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+	/*glBindVertexArray(vao);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);*/
 
 	// Draw Arrays...
-	model_matrix = glm::translate(glm::mat4(1.0f), glm::vec3(-3.0f, 0.0f, -5.0f));
+	model_matrix = glm::mat4(1.0f);//glm::translate(glm::mat4(1.0f), glm::vec3(-3.0f, 0.0f, -5.0f));
 	glUniformMatrix4fv(render_model_matrix_loc, 1, GL_FALSE, glm::value_ptr(model_matrix));
-	glDrawArrays(GL_TRIANGLES, 0, 3);
+	
+	triangle->Draw();
+
+	//glDrawArrays(GL_TRIANGLES, 0, 3);
 
 	// DrawElements
-	model_matrix = glm::translate(glm::mat4(1.0f), glm::vec3(-1.0f, 0.0f, -5.0f));
-	glUniformMatrix4fv(render_model_matrix_loc, 1, GL_FALSE, glm::value_ptr(model_matrix));
-	glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_SHORT, NULL);
+	//model_matrix = glm::translate(glm::mat4(1.0f), glm::vec3(-1.0f, 0.0f, -5.0f));
+	//glUniformMatrix4fv(render_model_matrix_loc, 1, GL_FALSE, glm::value_ptr(model_matrix));
+	//glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_SHORT, NULL);
 
-	// DrawElementsBaseVertex
-	model_matrix = glm::translate(glm::mat4(1.0f), glm::vec3(1.0f, 0.0f, -5.0f));
-	glUniformMatrix4fv(render_model_matrix_loc, 1, GL_FALSE, glm::value_ptr(model_matrix));
-	glDrawElementsBaseVertex(GL_TRIANGLES, 3, GL_UNSIGNED_SHORT, NULL, 1);
+	//// DrawElementsBaseVertex
+	//model_matrix = glm::translate(glm::mat4(1.0f), glm::vec3(1.0f, 0.0f, -5.0f));
+	//glUniformMatrix4fv(render_model_matrix_loc, 1, GL_FALSE, glm::value_ptr(model_matrix));
+	//glDrawElementsBaseVertex(GL_TRIANGLES, 3, GL_UNSIGNED_SHORT, NULL, 1);
 
-	// DrawArraysInstanced
-	model_matrix = glm::translate(glm::mat4(1.0f), glm::vec3(3.0f, 0.0f, -5.0f));
-	glUniformMatrix4fv(render_model_matrix_loc, 1, GL_FALSE, glm::value_ptr(model_matrix));
-	glDrawArraysInstanced(GL_TRIANGLES, 0, 3, 1);
+	//// DrawArraysInstanced
+	//model_matrix = glm::translate(glm::mat4(1.0f), glm::vec3(3.0f, 0.0f, -5.0f));
+	//glUniformMatrix4fv(render_model_matrix_loc, 1, GL_FALSE, glm::value_ptr(model_matrix));
+	//glDrawArraysInstanced(GL_TRIANGLES, 0, 3, 1);
 }
 
 void Finalize(void) {
