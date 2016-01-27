@@ -118,7 +118,7 @@ bool Shader::LoadShaderFile(std::string from, std::string &into) {
 void Shader::SetDefaultAttributes() {
 	//these calls bind the given indexes into the vertex shader
 	glBindAttribLocation(program, VERTEX_BUFFER, "position");
-	glBindAttribLocation(program, COLOUR_BUFFER, "colour");
+	glBindAttribLocation(program, COLOUR_BUFFER, "color");
 	//even if no texture coords are attached, it will work
 	//glBindAttribLocation(program, TEXTURE_BUFFER, "texCoord");
 	////normals and tangents will be used for lightning

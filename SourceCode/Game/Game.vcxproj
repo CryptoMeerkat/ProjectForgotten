@@ -25,8 +25,8 @@
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="primitive_restart.fs.glsl" />
-    <None Include="primitive_restart.vs.glsl" />
+    <None Include="fs.glsl" />
+    <None Include="vs.glsl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{6D2744A4-0357-438E-BD89-B171357E7FEA}</ProjectGuid>

@@ -49,10 +49,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="primitive_restart.fs.glsl">
+    <None Include="vs.glsl">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="primitive_restart.vs.glsl">
+    <None Include="fs.glsl">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

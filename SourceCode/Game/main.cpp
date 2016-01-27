@@ -43,25 +43,16 @@ void Initialize() {
 
 	triangle = Mesh::GenerateTriangle();
 
-	currentShader = new Shader("primitive_restart.vs.glsl", "primitive_restart.fs.glsl");
+	currentShader = new Shader("vs.glsl", "fs.glsl");
 	if (!currentShader->LinkProgram()) {
 		std::cout << "Shader linking no success" << std::endl;
 		return;
 	}
 
-	ShaderInfo shader_info[] = {
-		{GL_VERTEX_SHADER, "primitive_restart.vs.glsl"},
-		{GL_FRAGMENT_SHADER, "primitive_restart.fs.glsl"},
-		{GL_NONE, NULL}
-	};
-
-	render_prog = LoadShaders(shader_info);
-	//glUseProgram(render_prog);
-
 	glUseProgram(currentShader->GetProgram());
 
-	render_model_matrix_loc = glGetUniformLocation(render_prog, "model_matrix");
-	render_projection_matrix_loc = glGetUniformLocation(render_prog, "projection_matrix");
+	//render_model_matrix_loc = glGetUniformLocation(render_prog, "modelMatrix");
+	//render_projection_matrix_loc = glGetUniformLocation(render_prog, "projectionMatrix");
 
 	//// A single triangle
 	//static const GLfloat vertex_positions[] = {
@@ -104,7 +95,7 @@ void Initialize() {
 	//glEnableVertexAttribArray(0);
 	//glEnableVertexAttribArray(1);
 
-	//glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 }
 
 void Display() {
@@ -112,24 +103,24 @@ void Display() {
 
 	// Setup
 	//glEnable(GL_CULL_FACE);
-	glDisable(GL_DEPTH_TEST);
+	//glDisable(GL_DEPTH_TEST);
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Activate simple shading program
-	glUseProgram(render_prog);
+	//glUseProgram(render_prog);
 
 	// Set up the model and projection matrix
-	glm::mat4 projection_matrix(glm::frustum(-1.0f, 1.0f, -aspect, aspect, 1.0f, 500.0f));
-	glUniformMatrix4fv(render_projection_matrix_loc, 1, GL_FALSE, glm::value_ptr(projection_matrix));
+	//glm::mat4 projection_matrix(glm::frustum(-1.0f, 1.0f, -aspect, aspect, 1.0f, 500.0f));
+	//glUniformMatrix4fv(render_projection_matrix_loc, 1, GL_FALSE, glm::value_ptr(projection_matrix));
 
 	// Set up for a glDrawElements call
 	/*glBindVertexArray(vao);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);*/
 
 	// Draw Arrays...
-	model_matrix = glm::mat4(1.0f);//glm::translate(glm::mat4(1.0f), glm::vec3(-3.0f, 0.0f, -5.0f));
-	glUniformMatrix4fv(render_model_matrix_loc, 1, GL_FALSE, glm::value_ptr(model_matrix));
+	//model_matrix = glm::mat4(1.0f);//glm::translate(glm::mat4(1.0f), glm::vec3(-3.0f, 0.0f, -5.0f));
+	//glUniformMatrix4fv(render_model_matrix_loc, 1, GL_FALSE, glm::value_ptr(model_matrix));
 	
 	triangle->Draw();
 
