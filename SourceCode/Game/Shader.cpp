@@ -55,7 +55,7 @@ Shader::~Shader(void) {
 
 GLuint Shader::GenerateShader(std::string from, GLenum type) {
 
-	std::cout << "Compiling Shader..." << std::endl;
+	//std::cout << "Compiling Shader..." << std::endl;
 
 	//load the shader file into a string
 	std::string load;
@@ -86,7 +86,7 @@ GLuint Shader::GenerateShader(std::string from, GLenum type) {
 		return 0;
 	}
 
-	std::cout << "Compiling success!" << std::endl;
+	//std::cout << "Compiling success!" << std::endl;
 	loadFailed = false;
 	return shader;
 }
@@ -95,7 +95,7 @@ bool Shader::LoadShaderFile(std::string from, std::string &into) {
 	std::ifstream file;
 	std::string tmp;
 
-	std::cout << "Loading shader text from " << from << std::endl << std::endl;
+	//std::cout << "Loading shader text from " << from << std::endl << std::endl;
 
 	file.open(from.c_str());
 	if (!file.is_open()) {

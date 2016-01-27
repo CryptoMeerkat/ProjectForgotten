@@ -2,18 +2,18 @@
 #include "Mesh.h"
 #include <iostream>
 
+#include <glm\gtc\matrix_transform.hpp>
+#include <glm\gtc\type_ptr.hpp>
+
 Renderer::Renderer(Window &window) {
 
 	CheckOpenGLVersion();
 	InitializeGlew();
-
-	// When we clear the screen, we want it to be dark grey
-	glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 	
 	// initialize default shader
 	currentShader = new Shader("vs.glsl", "fs.glsl");
 	if (!currentShader->LinkProgram()) {
-		std::cout << "Shader linking no success" << std::endl;
+		std::cout << "Shader linking: Failed!" << std::endl;
 		return;
 	}
 	glUseProgram(currentShader->GetProgram());
@@ -51,25 +51,26 @@ void Renderer::CheckOpenGLVersion() {
 	int minor = ver[2] - '0';		//casts the 'correct' minor version integer from our version string
 
 	if (major < 3) {					//Graphics hardware does not support OGL 3! Erk...
-		std::cout << "OGLRenderer::OGLRenderer(): Device does not support OpenGL 3.x!" << std::endl;
+		std::cout << "Device does not support OpenGL 3.x!" << std::endl;
+	} else if (major == 3 && minor < 2) {	//Graphics hardware does not support ENOUGH of OGL 3! Erk...
+		std::cout << "Device does not support OpenGL 3.2!" << std::endl;
+	} else if (major == 4 && minor < 5) {	//Graphics hardware does not support ENOUGH of OGL 4.5
+		std::cout << "Device does not support OpenGL 4.5!" << std::endl;
 	}
 
-	if (major == 3 && minor < 2) {	//Graphics hardware does not support ENOUGH of OGL 3! Erk...
-		std::cout << "OGLRenderer::OGLRenderer(): Device does not support OpenGL 3.2!" << std::endl;
-
-	}
-
-	if (major == 4 && minor < 5) {	//Graphics hardware does not support ENOUGH of OGL 4.5
-		std::cout << "OGLRenderer::OGLRenderer(): Device does not support OpenGL 4.5!" << std::endl;
-
-	}
 	//We do support OGL 3! Let's set it up...
 }
 
 void Renderer::RenderScene() {
 	// setup clear color for the viewport
-	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+	glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	glm::mat4 projectionMatrix = glm::mat4(glm::frustum(-1.0f, 1.0f, -aspect, aspect, 1.0f, 15000.0f));
+	//glUniformMatrix4fv(glGetUniformLocation(currentShader->GetProgram(), "projectionMatrix"), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
+
+	glm::mat4 modleMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.5f, 0.0, -5.0f));
+	//glUniformMatrix4fv(glGetUniformLocation(currentShader->GetProgram(), "modelMatrix"), 1, GL_FALSE, glm::value_ptr(modleMatrix));
 
 	triangle->Draw();
 
