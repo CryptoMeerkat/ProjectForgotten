@@ -2,10 +2,10 @@
 
 in vec4 vs_fs_color;
 
-layout (location = 0) out vec4 color;
+out vec4 gl_FragColor;
 
 void main(void)
 {
-    color = vs_fs_color;
+    gl_FragColor = vs_fs_color;
 
 }

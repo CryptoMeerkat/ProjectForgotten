@@ -14,7 +14,7 @@
 #include "Window.h"
 
 #include "Mesh.h"
-
+#include "Shader.h"
 
 #include "LoadShaders.h"
 extern GLuint LoadShaders(ShaderInfo *shaderinfo);
@@ -33,6 +33,7 @@ GLuint vao;
 GLuint vbo;
 GLuint ebo;
 
+Shader* currentShader;
 Mesh* triangle;
 
 GLint render_model_matrix_loc;
@@ -42,6 +43,12 @@ void Initialize() {
 
 	triangle = Mesh::GenerateTriangle();
 
+	currentShader = new Shader("primitive_restart.vs.glsl", "primitive_restart.fs.glsl");
+	if (!currentShader->LinkProgram()) {
+		std::cout << "Shader linking no success" << std::endl;
+		return;
+	}
+
 	ShaderInfo shader_info[] = {
 		{GL_VERTEX_SHADER, "primitive_restart.vs.glsl"},
 		{GL_FRAGMENT_SHADER, "primitive_restart.fs.glsl"},
@@ -49,7 +56,9 @@ void Initialize() {
 	};
 
 	render_prog = LoadShaders(shader_info);
-	glUseProgram(render_prog);
+	//glUseProgram(render_prog);
+
+	glUseProgram(currentShader->GetProgram());
 
 	render_model_matrix_loc = glGetUniformLocation(render_prog, "model_matrix");
 	render_projection_matrix_loc = glGetUniformLocation(render_prog, "projection_matrix");
@@ -102,7 +111,7 @@ void Display() {
 	glm::mat4 model_matrix;
 
 	// Setup
-	glEnable(GL_CULL_FACE);
+	//glEnable(GL_CULL_FACE);
 	glDisable(GL_DEPTH_TEST);
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -197,6 +206,7 @@ int main(int argc, char *argv[]) {
 
 		
 		Display();
+
 		w.SwapBuffers();
 
 		while (SDL_PollEvent(&event)) {
