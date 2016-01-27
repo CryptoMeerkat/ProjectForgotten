@@ -7,7 +7,7 @@
 #include <cstdlib>
 #include <iostream>
 
-#include <GL/glew.h>
+#include <GL\glew.h>
 #include "LoadShaders.h"
 
 //----------------------------------------------------------------------------

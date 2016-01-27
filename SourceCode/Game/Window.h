@@ -1,6 +1,10 @@
 #pragma once
 
-#include "SDL.h"
+#include "Renderer.h"
+#include <SDL\SDL.h>
+
+// the Renderer must be compiled before the Window, as the Renderer is using the Window
+class Renderer;
 
 ///-------------------------------------------------------------------------------------------------
 /// <summary>A window class handling the SDL window stuff.</summary>
@@ -51,6 +55,15 @@ class Window {
 	///-------------------------------------------------------------------------------------------------
 	bool isInitialized() {
 		return initialized;
+	}
+
+	///-------------------------------------------------------------------------------------------------
+	/// <summary>Sets the renderer for this window.</summary>
+	///
+	/// <param name="r">[in,out] If non-null, the OGLRenderer* to process.</param>
+	///-------------------------------------------------------------------------------------------------
+	void SetRenderer(Renderer* r) {
+		renderer = r;
 	}
 
 	private:
@@ -113,5 +126,7 @@ class Window {
 	bool minimized;
 
 	bool initialized;
+
+	Renderer* renderer;
 
 };

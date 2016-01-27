@@ -1,17 +1,18 @@
 #include <string>
 #include <iostream>
 
-#include "SDL.h"
+#include <SDL\SDL.h>
 
 #define GLM_SWIZZLE
-#include <glm.hpp>
-#include <gtc/matrix_transform.hpp>
-#include <gtc/type_ptr.hpp>
+#include <glm\glm.hpp>
+#include <glm\gtc\matrix_transform.hpp>
+#include <glm\gtc\type_ptr.hpp>
 
-#include <GL/glew.h>
-#include <GL/gl.h>
+#include <GL\glew.h>
+#include <GL\gl.h>
 
 #include "Window.h"
+#include "Renderer.h"
 
 #include "Mesh.h"
 #include "Shader.h"
@@ -33,23 +34,15 @@ GLuint vao;
 GLuint vbo;
 GLuint ebo;
 
-Shader* currentShader;
-Mesh* triangle;
+//Shader* currentShader;
+//Mesh* triangle;
 
 GLint render_model_matrix_loc;
 GLint render_projection_matrix_loc;
 
 void Initialize() {
 
-	triangle = Mesh::GenerateTriangle();
-
-	currentShader = new Shader("vs.glsl", "fs.glsl");
-	if (!currentShader->LinkProgram()) {
-		std::cout << "Shader linking no success" << std::endl;
-		return;
-	}
-
-	glUseProgram(currentShader->GetProgram());
+	//triangle = Mesh::GenerateTriangle();
 
 	//render_model_matrix_loc = glGetUniformLocation(render_prog, "modelMatrix");
 	//render_projection_matrix_loc = glGetUniformLocation(render_prog, "projectionMatrix");
@@ -95,17 +88,16 @@ void Initialize() {
 	//glEnableVertexAttribArray(0);
 	//glEnableVertexAttribArray(1);
 
-	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 }
 
 void Display() {
-	glm::mat4 model_matrix;
+	//glm::mat4 model_matrix;
 
 	// Setup
 	//glEnable(GL_CULL_FACE);
 	//glDisable(GL_DEPTH_TEST);
 
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Activate simple shading program
 	//glUseProgram(render_prog);
@@ -122,7 +114,7 @@ void Display() {
 	//model_matrix = glm::mat4(1.0f);//glm::translate(glm::mat4(1.0f), glm::vec3(-3.0f, 0.0f, -5.0f));
 	//glUniformMatrix4fv(render_model_matrix_loc, 1, GL_FALSE, glm::value_ptr(model_matrix));
 	
-	triangle->Draw();
+	//triangle->Draw();
 
 	//glDrawArrays(GL_TRIANGLES, 0, 3);
 
@@ -143,15 +135,10 @@ void Display() {
 }
 
 void Finalize(void) {
-	glUseProgram(0);
-	glDeleteProgram(render_prog);
-	glDeleteVertexArrays(1, &vao);
-	glDeleteBuffers(1, &vbo);
-}
-
-void Reshape(int width, int height) {
-	glViewport(0, 0, width, height);
-	aspect = float(height) / float(width);
+	//glUseProgram(0);
+	//glDeleteProgram(render_prog);
+	//glDeleteVertexArrays(1, &vao);
+	//glDeleteBuffers(1, &vbo);
 }
 
 
@@ -174,29 +161,17 @@ int main(int argc, char *argv[]) {
 		std::cout << "SDL window init: Success!" << std::endl;
 	}
 
-	GLenum rev;
+	Renderer r(w);
 	
-	glewExperimental = GL_TRUE;
-	rev = glewInit();
-	
-	if (GLEW_OK != rev) {
-		std::cout << "GLEW init error: " << glewGetErrorString(rev) << std::endl;
-		SDL_Quit();
-		exit(1);
-	} else {
-		std::cout << "GLEW init: Success!" << std::endl;
-	}
-
 	bool quit = false;
 
-	Initialize();
-	Reshape(512, 512);
+	//Initialize();
 	SDL_Event event;
 	
 	while (!quit) {
 
-		
-		Display();
+		r.RenderScene();
+		//Display();
 
 		w.SwapBuffers();
 
@@ -210,9 +185,10 @@ int main(int argc, char *argv[]) {
 
 	}
 
-	Finalize();
+	//Finalize();
 
 	/* Delete our opengl context, destroy our window, and shutdown SDL */
+	r.~Renderer();
 	w.~Window();
 	SDL_Quit();
 

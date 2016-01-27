@@ -1,4 +1,5 @@
 #include "Mesh.h"
+#include <GL/glew.h>
 
 Mesh::Mesh() {
 	for (int i = 0; i < MeshBuffer::MAX_BUFFER; i++) {

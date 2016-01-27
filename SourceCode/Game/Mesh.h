@@ -1,8 +1,8 @@
 #pragma once
 
 #include "MeshBuffer.h"
-#include <GL/glew.h>
-#include <glm.hpp>
+#include <GL\glew.h>
+#include <glm\glm.hpp>
 
 class Mesh {
 
