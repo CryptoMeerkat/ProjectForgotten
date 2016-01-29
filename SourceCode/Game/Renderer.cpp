@@ -7,8 +7,8 @@
 
 Renderer::Renderer(Window &window) {
 
-	CheckOpenGLVersion();
 	InitializeGlew();
+	CheckOpenGLVersion();
 	
 	// initialize default shader
 	currentShader = new Shader("vs.glsl", "fs.glsl");
@@ -21,6 +21,8 @@ Renderer::Renderer(Window &window) {
 	window.SetRenderer(this);					
 
 	triangle = Mesh::GenerateTriangle();
+
+	glViewport(0, 0, 512, 512);
 
 	glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 }
@@ -52,7 +54,7 @@ void Renderer::CheckOpenGLVersion() {
 
 	if (major < 3) {					//Graphics hardware does not support OGL 3! Erk...
 		std::cout << "Device does not support OpenGL 3.x!" << std::endl;
-	} else if (major == 3 && minor < 2) {	//Graphics hardware does not support ENOUGH of OGL 3! Erk...
+	} else if (major == 3 && minor < 2) {
 		std::cout << "Device does not support OpenGL 3.2!" << std::endl;
 	} else if (major == 4 && minor < 4) {
 		std::cout << "Device does not support OpenGL 4.4!" << std::endl;

@@ -1,15 +1,16 @@
 #include <string>
 #include <iostream>
 
+#include <SDL\SDL.h>
+
 #define GLM_SWIZZLE
 #include <glm\glm.hpp>
 #include <glm\gtc\matrix_transform.hpp>
 #include <glm\gtc\type_ptr.hpp>
 
 #include <GL\glew.h>
+#include <SDL\SDL_opengl.h>
 #include <GL\gl.h>
-
-#include <SDL\SDL.h>
 
 #include "Window.h"
 #include "Renderer.h"
@@ -169,6 +170,11 @@ int main(int argc, char *argv[]) {
 	SDL_Event event;
 	
 	while (!quit) {
+
+		GLenum err = GL_NO_ERROR;
+		while ((err = glGetError()) != GL_NO_ERROR) {
+			std::cout << err << std::endl;
+		}
 
 		r.RenderScene();
 		//Display();
