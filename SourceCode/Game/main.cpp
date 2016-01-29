@@ -1,8 +1,6 @@
 #include <string>
 #include <iostream>
 
-#include <SDL\SDL.h>
-
 #define GLM_SWIZZLE
 #include <glm\glm.hpp>
 #include <glm\gtc\matrix_transform.hpp>
@@ -10,6 +8,8 @@
 
 #include <GL\glew.h>
 #include <GL\gl.h>
+
+#include <SDL\SDL.h>
 
 #include "Window.h"
 #include "Renderer.h"

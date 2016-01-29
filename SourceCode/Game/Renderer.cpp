@@ -16,18 +16,18 @@ Renderer::Renderer(Window &window) {
 		std::cout << "Shader linking: Failed!" << std::endl;
 		return;
 	}
-	glUseProgram(currentShader->GetProgram());
 
 	// Tell our window about the new renderer! (Which will in turn resize the renderer window to fit...)
 	window.SetRenderer(this);					
 
 	triangle = Mesh::GenerateTriangle();
+
+	glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 }
 
 
 Renderer::~Renderer() {
 	delete triangle;
-	glUseProgram(0);
 	glDeleteProgram(currentShader->GetProgram());
 }
 
@@ -38,7 +38,7 @@ void Renderer::InitializeGlew() {
 
 	// Try to initialise GLEW
 	if (glewInit() != GLEW_OK) {	
-		std::cout << "OGLRenderer::OGLRenderer(): Cannot initialise GLEW!" << std::endl;	//It's all gone wrong!
+		std::cout << "GLEW init: Failed!" << std::endl;	//It's all gone wrong!
 		return;
 	}
 	// If we get this far, everything's going well!
@@ -54,7 +54,9 @@ void Renderer::CheckOpenGLVersion() {
 		std::cout << "Device does not support OpenGL 3.x!" << std::endl;
 	} else if (major == 3 && minor < 2) {	//Graphics hardware does not support ENOUGH of OGL 3! Erk...
 		std::cout << "Device does not support OpenGL 3.2!" << std::endl;
-	} else if (major == 4 && minor < 5) {	//Graphics hardware does not support ENOUGH of OGL 4.5
+	} else if (major == 4 && minor < 4) {
+		std::cout << "Device does not support OpenGL 4.4!" << std::endl;
+	} else if (major == 4 && minor < 5) {
 		std::cout << "Device does not support OpenGL 4.5!" << std::endl;
 	}
 
@@ -62,8 +64,12 @@ void Renderer::CheckOpenGLVersion() {
 }
 
 void Renderer::RenderScene() {
+
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+	glUseProgram(currentShader->GetProgram());
+
 	// setup clear color for the viewport
-	glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glm::mat4 projectionMatrix = glm::mat4(glm::frustum(-1.0f, 1.0f, -aspect, aspect, 1.0f, 15000.0f));
@@ -73,6 +79,9 @@ void Renderer::RenderScene() {
 	//glUniformMatrix4fv(glGetUniformLocation(currentShader->GetProgram(), "modelMatrix"), 1, GL_FALSE, glm::value_ptr(modleMatrix));
 
 	triangle->Draw();
+
+
+	glUseProgram(0);
 
 }
 
