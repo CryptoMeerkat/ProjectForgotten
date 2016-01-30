@@ -101,7 +101,7 @@ int main(int argc, char *argv[]) {
 
 		r.RenderScene();
 
-		r.UpdateScene(SDL_GetTicks() - msecLastUpdate);
+		r.UpdateScene((float) SDL_GetTicks() - msecLastUpdate);
 		msecLastUpdate = SDL_GetTicks();
 
 		w.SwapBuffers();

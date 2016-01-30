@@ -24,10 +24,10 @@ Renderer::Renderer(Window &window) {
 
 	Resize(512, 512);
 
-	camera = new Camera((float) 0.0f,
-		(float) 0.0f,
-		(float) 0.0f,
-		(float) 3.0f,
+	camera = new Camera(0.1f,
+		0.0f,
+		0.0f,
+		3.0f,
 		glm::vec3(0.0f, 0.0f, -10.0f));
 
 }

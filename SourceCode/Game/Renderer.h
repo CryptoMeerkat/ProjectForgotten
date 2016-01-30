@@ -31,6 +31,8 @@ class Renderer {
 
 	///-------------------------------------------------------------------------------------------------
 	/// <summary>Pure virtual method to define what to update in the scene.</summary>
+	///
+	/// <param name="msec">The msec since the last call. Float, as we will often divide by this value.</param>
 	///-------------------------------------------------------------------------------------------------
 	virtual void UpdateScene(float msec);
 
