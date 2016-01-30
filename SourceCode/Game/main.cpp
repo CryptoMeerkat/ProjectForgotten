@@ -19,8 +19,6 @@
 #include "Shader.h"
 
 
-#define PROGRAM_NAME "Red Book - Chapter 3 - Draw Commands"
-
 void Initialize();
 void Display();
 void Finalize(void);
