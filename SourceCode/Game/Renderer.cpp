@@ -23,6 +23,13 @@ Renderer::Renderer(Window &window) {
 	triangle = Mesh::GenerateTriangle();
 
 	Resize(512, 512);
+
+	camera = new Camera((float) 0.0f,
+		(float) 0.0f,
+		(float) 0.0f,
+		(float) 3.0f,
+		glm::vec3(0.0f, 0.0f, -10.0f));
+
 }
 
 

@@ -62,6 +62,7 @@ void Display() {
 	//glDrawArraysInstanced(GL_TRIANGLES, 0, 3, 1);
 }
 
+int msecLastUpdate;
 
 int main(int argc, char *argv[]) {
 
@@ -88,6 +89,9 @@ int main(int argc, char *argv[]) {
 
 	SDL_Event event;
 	
+	//start the timer
+	msecLastUpdate = SDL_Init(SDL_INIT_TIMER);
+
 	while (!quit) {
 
 		GLenum err = GL_NO_ERROR;
@@ -96,6 +100,9 @@ int main(int argc, char *argv[]) {
 		}
 
 		r.RenderScene();
+
+		r.UpdateScene(SDL_GetTicks() - msecLastUpdate);
+		msecLastUpdate = SDL_GetTicks();
 
 		w.SwapBuffers();
 
