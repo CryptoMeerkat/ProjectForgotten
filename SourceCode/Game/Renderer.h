@@ -3,7 +3,9 @@
 #include "Window.h"
 #include "Shader.h"
 #include "Mesh.h"
+#include "Camera.h"
 #include <glm\glm.hpp>
+
 
 class Window;
 
@@ -26,6 +28,11 @@ class Renderer {
 	/// 		 Deletes the default shader, and the OpenGL rendering context.</summary>
 	///-------------------------------------------------------------------------------------------------
 	virtual ~Renderer();
+
+	///-------------------------------------------------------------------------------------------------
+	/// <summary>Pure virtual method to define what to update in the scene.</summary>
+	///-------------------------------------------------------------------------------------------------
+	virtual void UpdateScene(float msec);
 
 	///-------------------------------------------------------------------------------------------------
 	/// <summary>Pure virtual method to define what to render in the scene.</summary>
@@ -83,4 +90,7 @@ class Renderer {
 	/// <summary>The viewport aspect ratio.</summary>
 	///-------------------------------------------------------------------------------------------------
 	float aspect;
+
+	Camera* camera;
+
 };
