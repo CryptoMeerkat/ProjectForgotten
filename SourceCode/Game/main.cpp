@@ -18,9 +18,6 @@
 #include "Mesh.h"
 #include "Shader.h"
 
-#include "LoadShaders.h"
-extern GLuint LoadShaders(ShaderInfo *shaderinfo);
-
 
 #define PROGRAM_NAME "Red Book - Chapter 3 - Draw Commands"
 
