@@ -5,15 +5,27 @@
 
 class Keyboard {
 
+	private:
+
+		Keyboard() {
+			keystate = nullptr;
+			numberOfKeys = 0;
+		}
+
+		~Keyboard() {
+		};
+
 	public:
 
-	Keyboard() {
-		keystate = nullptr;
-		numberOfKeys = 0;
+	static Keyboard& Instance() {
+		static Keyboard instance; // Guaranteed to be destroyed.
+		// Instantiated on first use.
+		return instance;
 	}
 
-	~Keyboard() {
-	};
+	// Singleton
+	Keyboard(Keyboard const&) = delete;
+	void operator=(Keyboard const&) = delete;
 
 	void Initialise(const Uint8* currentState, unsigned int numberOfKeys) {
 		this->keystate = currentState;

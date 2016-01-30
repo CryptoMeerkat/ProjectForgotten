@@ -87,10 +87,9 @@ int main(int argc, char *argv[]) {
 	Renderer r(w);
 	
 	// load keyboard up
-	Keyboard k;
 	int numKeys;
 	const Uint8* keystate = SDL_GetKeyboardState(&numKeys);
-	k.Initialise(keystate, numKeys);
+	Keyboard::Instance().Initialise(keystate, numKeys);
 
 	bool quit = false;
 
@@ -121,7 +120,12 @@ int main(int argc, char *argv[]) {
 
 		}
 
-		k.Update();
+		Keyboard::Instance().Update();
+
+		std::cout << "key: " << Keyboard::Instance().GetKey(SDL_SCANCODE_D) << std::endl;
+		std::cout << "key hold: " << Keyboard::Instance().GetKeyHold(SDL_SCANCODE_D) << std::endl;
+		std::cout << "key down: " << Keyboard::Instance().GetKeyDown(SDL_SCANCODE_D) << std::endl;
+		std::cout << "key up: " << Keyboard::Instance().GetKeyUp(SDL_SCANCODE_D) << std::endl;
 
 	}
 
