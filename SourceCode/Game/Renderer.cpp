@@ -7,8 +7,8 @@
 
 Renderer::Renderer(Window &window) {
 
-	InitializeGlew();
 	CheckOpenGLVersion();
+	InitializeGlew();
 	
 	// initialize default shader
 	currentShader = new Shader("vs.glsl", "fs.glsl");
@@ -22,9 +22,7 @@ Renderer::Renderer(Window &window) {
 
 	triangle = Mesh::GenerateTriangle();
 
-	glViewport(0, 0, 512, 512);
-
-	glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
+	Resize(512, 512);
 }
 
 
@@ -47,12 +45,11 @@ void Renderer::InitializeGlew() {
 }
 
 void Renderer::CheckOpenGLVersion() {
-	//Now we have a temporary context, we can find out if we support OGL 3.x
 	char* ver = (char*) glGetString(GL_VERSION); // ver must equal "3.2.0" (or greater!)
 	int major = ver[0] - '0';		//casts the 'correct' major version integer from our version string
 	int minor = ver[2] - '0';		//casts the 'correct' minor version integer from our version string
 
-	if (major < 3) {					//Graphics hardware does not support OGL 3! Erk...
+	if (major < 3) {
 		std::cout << "Device does not support OpenGL 3.x!" << std::endl;
 	} else if (major == 3 && minor < 2) {
 		std::cout << "Device does not support OpenGL 3.2!" << std::endl;
@@ -62,11 +59,11 @@ void Renderer::CheckOpenGLVersion() {
 		std::cout << "Device does not support OpenGL 4.5!" << std::endl;
 	}
 
-	//We do support OGL 3! Let's set it up...
 }
 
 void Renderer::RenderScene() {
 
+	glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	glUseProgram(currentShader->GetProgram());
