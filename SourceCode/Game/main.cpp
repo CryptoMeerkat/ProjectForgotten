@@ -18,74 +18,6 @@
 #include "Mesh.h"
 #include "Shader.h"
 
-
-void Initialize();
-void Display();
-void Finalize(void);
-void Reshape(int width, int height);
-
-float aspect;
-GLuint render_prog;
-GLuint vao;
-GLuint vbo;
-GLuint ebo;
-
-//Shader* currentShader;
-//Mesh* triangle;
-
-GLint render_model_matrix_loc;
-GLint render_projection_matrix_loc;
-
-void Initialize() {
-
-	//triangle = Mesh::GenerateTriangle();
-
-	//render_model_matrix_loc = glGetUniformLocation(render_prog, "modelMatrix");
-	//render_projection_matrix_loc = glGetUniformLocation(render_prog, "projectionMatrix");
-
-	//// A single triangle
-	//static const GLfloat vertex_positions[] = {
-	//	-1.0f, -1.0f, 0.0f, 1.0f,
-	//	1.0f, -1.0f, 0.0f, 1.0f,
-	//	-1.0f, 1.0f, 0.0f, 1.0f,
-	//	-1.0f, -1.0f, 0.0f, 1.0f,
-	//};
-
-	//// Color for each vertex
-	//static const GLfloat vertex_colors[] = {
-	//	1.0f, 1.0f, 1.0f, 1.0f,
-	//	1.0f, 1.0f, 0.0f, 1.0f,
-	//	1.0f, 0.0f, 1.0f, 1.0f,
-	//	0.0f, 1.0f, 1.0f, 1.0f
-	//};
-
-	//// Indices for the triangle strips
-	//static const GLushort vertex_indices[] = {
-	//	0, 1, 2
-	//};
-
-	//// Set up the element array buffer
-	//glGenBuffers(1, &ebo);
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-	//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(vertex_indices), vertex_indices, GL_STATIC_DRAW);
-
-	//// Set up the vertex attributes
-	//glGenVertexArrays(1, &vao);
-	//glBindVertexArray(vao);
-
-	//glGenBuffers(1, &vbo);
-	//glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	//glBufferData(GL_ARRAY_BUFFER, sizeof(vertex_positions) +sizeof(vertex_colors), NULL, GL_STATIC_DRAW);
-	//glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertex_positions), vertex_positions);
-	//glBufferSubData(GL_ARRAY_BUFFER, sizeof(vertex_positions), sizeof(vertex_colors), vertex_colors);
-
-	//glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, NULL);
-	//glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, (const GLvoid *)sizeof(vertex_positions));
-	//glEnableVertexAttribArray(0);
-	//glEnableVertexAttribArray(1);
-
-}
-
 void Display() {
 	//glm::mat4 model_matrix;
 
@@ -130,13 +62,6 @@ void Display() {
 	//glDrawArraysInstanced(GL_TRIANGLES, 0, 3, 1);
 }
 
-void Finalize(void) {
-	//glUseProgram(0);
-	//glDeleteProgram(render_prog);
-	//glDeleteVertexArrays(1, &vao);
-	//glDeleteBuffers(1, &vbo);
-}
-
 
 int main(int argc, char *argv[]) {
 
@@ -161,7 +86,6 @@ int main(int argc, char *argv[]) {
 	
 	bool quit = false;
 
-	//Initialize();
 	SDL_Event event;
 	
 	while (!quit) {
@@ -172,7 +96,6 @@ int main(int argc, char *argv[]) {
 		}
 
 		r.RenderScene();
-		//Display();
 
 		w.SwapBuffers();
 
@@ -186,9 +109,7 @@ int main(int argc, char *argv[]) {
 
 	}
 
-	//Finalize();
-
-	/* Delete our opengl context, destroy our window, and shutdown SDL */
+	// Delete our opengl context, destroy our window, and shutdown SDL
 	r.~Renderer();
 	w.~Window();
 	SDL_Quit();
