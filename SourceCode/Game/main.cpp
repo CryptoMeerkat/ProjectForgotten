@@ -14,6 +14,7 @@
 
 #include "Window.h"
 #include "Renderer.h"
+#include "Keyboard.h"
 
 #include "Mesh.h"
 #include "Shader.h"
@@ -85,6 +86,12 @@ int main(int argc, char *argv[]) {
 
 	Renderer r(w);
 	
+	// load keyboard up
+	Keyboard k;
+	int numKeys;
+	const Uint8* keystate = SDL_GetKeyboardState(&numKeys);
+	k.Initialise(keystate, numKeys);
+
 	bool quit = false;
 
 	SDL_Event event;
@@ -113,6 +120,8 @@ int main(int argc, char *argv[]) {
 			}
 
 		}
+
+		k.Update();
 
 	}
 

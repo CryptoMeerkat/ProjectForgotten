@@ -19,6 +19,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Keyboard.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshBuffer.h" />
     <ClInclude Include="Renderer.h" />
