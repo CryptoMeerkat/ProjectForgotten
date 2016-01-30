@@ -1,4 +1,5 @@
 #include "Camera.h"
+#include "Keyboard.h"
 
 Camera::Camera() {
 	yaw = 0.0f;
@@ -24,6 +25,8 @@ void Camera::UpdateCamera(float msec) {
 	float secondsPassed = msec / 1000.0f;
 	msec /= (1000 / speed);
 
+
+
 	//pitch -= (Window::GetMouse()->GetRelativePosition().y);
 	//yaw -= (Window::GetMouse()->GetRelativePosition().x);
 
@@ -46,16 +49,38 @@ void Camera::UpdateCamera(float msec) {
 	//	roll -= 360.0f;
 	//}
 
-	//if (Window::GetKeyboard()->KeyDown(KEYBOARD_E)) {
-	//	//roll--;
-	//}
+	if (Keyboard::Instance().GetKeyDown(SDL_SCANCODE_E)) {
+		roll--;
+	}
 
-	//if (Window::GetKeyboard()->KeyDown(KEYBOARD_Q)) {
-	//	//roll++;
-	//}
+	if (Keyboard::Instance().GetKeyDown(SDL_SCANCODE_Q)) {
+		roll--;
+	}
 
 	//Quaternion qcam = Quaternion::EulerAnglesToQuaternion(pitch, yaw, roll);
 	//Vector3 oldPosition = position;
+
+	if (Keyboard::Instance().GetKeyDown(SDL_SCANCODE_W)) {
+		position += glm::mat3(glm::rotate(glm::mat4(1.0f), yaw, glm::vec3(0.0f, 1.0f, 0.0f))) * glm::vec3(0.0f, 0.0f, -1.0f) * msec;
+	}
+
+	if (Keyboard::Instance().GetKeyDown(SDL_SCANCODE_S)) {
+		position -= glm::mat3(glm::rotate(glm::mat4(1.0f), yaw, glm::vec3(0.0f, 1.0f, 0.0f))) * glm::vec3(0.0f, 0.0f, -1.0f) * msec;
+	}
+
+	if (Keyboard::Instance().GetKeyDown(SDL_SCANCODE_A)) {
+		position += glm::mat3(glm::rotate(glm::mat4(1.0f), yaw, glm::vec3(0.0f, 1.0f, 0.0f))) * glm::vec3(-1.0f, 0.0f, 0.0f) * msec;
+	}
+
+	if (Keyboard::Instance().GetKeyDown(SDL_SCANCODE_D)) {
+		position -= glm::mat3(glm::rotate(glm::mat4(1.0f), yaw, glm::vec3(0.0f, 1.0f, 0.0f))) * glm::vec3(-1.0f, 0.0f, 0.0f) * msec;
+	}
+
+	std::cout << std::endl;
+	std::cout << position.x << std::endl;
+	std::cout << position.y << std::endl;
+	std::cout << position.z << std::endl;
+	std::cout << std::endl;
 
 	//if (Window::GetKeyboard()->KeyDown(KEYBOARD_W)) {
 	//	position += qcam.ToMatrix() * Vector3(0.0f, 0.0f, -1.0f) * msec;
@@ -97,7 +122,7 @@ glm::mat4 Camera::BuildViewMatrix() const {
 	//add the parent transform, as Camera can be in 
 	return	glm::rotate(glm::mat4(1.0f), pitch, glm::vec3(-1, 0, 0)) *
 			glm::rotate(glm::mat4(1.0f), yaw, glm::vec3(0, -1, 0)) *
-			glm::rotate(glm::mat4(1.0f), roll, glm::vec3(0, 0, -1));
+			glm::rotate(glm::mat4(1.0f), roll, glm::vec3(0, 0, -1)) *
 			glm::translate(glm::mat4(1.0f), -position);
 		
 		//Matrix4::Rotation(pitch, Vector3(-1, 0, 0)) *

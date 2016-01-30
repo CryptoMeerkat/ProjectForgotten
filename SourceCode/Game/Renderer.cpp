@@ -98,7 +98,7 @@ void Renderer::UpdateGlobalShaderUniforms() {
 	projectionMatrix = glm::mat4(glm::perspective(45.0f, aspect, 1.0f, 15000.0f));
 	glUniformMatrix4fv(glGetUniformLocation(currentShader->GetProgram(), "projectionMatrix"), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
 
-	modelMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -5.0f));
+	modelMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -15.0f));
 	glUniformMatrix4fv(glGetUniformLocation(currentShader->GetProgram(), "modelMatrix"), 1, GL_FALSE, glm::value_ptr(modelMatrix));
 
 	glUniformMatrix4fv(glGetUniformLocation(currentShader->GetProgram(), "viewMatrix"), 1, GL_FALSE, glm::value_ptr(viewMatrix));
