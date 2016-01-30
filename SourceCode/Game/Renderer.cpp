@@ -67,15 +67,11 @@ void Renderer::RenderScene() {
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	glUseProgram(currentShader->GetProgram());
+	UpdateGlobalShaderUniforms();
 
 	// setup clear color for the viewport
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	glm::mat4 projectionMatrix = glm::mat4(glm::frustum(-1.0f, 1.0f, -aspect, aspect, 1.0f, 15000.0f));
-	//glUniformMatrix4fv(glGetUniformLocation(currentShader->GetProgram(), "projectionMatrix"), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
-
-	glm::mat4 modleMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.5f, 0.0, -5.0f));
-	//glUniformMatrix4fv(glGetUniformLocation(currentShader->GetProgram(), "modelMatrix"), 1, GL_FALSE, glm::value_ptr(modleMatrix));
 
 	triangle->Draw();
 
@@ -86,6 +82,13 @@ void Renderer::RenderScene() {
 
 void Renderer::UpdateGlobalShaderUniforms() {
 
+	//projectionMatrix = glm::mat4(glm::frustum(-1.0f, 1.0f, -aspect, aspect, 1.0f, 15000.0f));
+	projectionMatrix = glm::mat4(glm::perspective(45.0f, aspect, -1.0f, 15000.0f));
+	//glUniformMatrix4fv(glGetUniformLocation(currentShader->GetProgram(), "projectionMatrix"), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
+
+	modelMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.1f, 0.0f, 0.0f));
+	//modelMatrix = glm::mat4(1.0f);
+	glUniformMatrix4fv(glGetUniformLocation(currentShader->GetProgram(), "modelMatrix"), 1, GL_FALSE, glm::value_ptr(modelMatrix));
 }
 
 void Renderer::Resize(int x, int y) {

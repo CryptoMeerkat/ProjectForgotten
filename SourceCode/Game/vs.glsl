@@ -15,5 +15,6 @@ void main(void)
 {
     OUT.color = color2;
     gl_Position = vec4(position, 1.0);
+    gl_Position = modelMatrix * vec4(position, 1.0);
     //gl_Position = projectionMatrix * modelMatrix * vec4(position, 1.0);
 }
