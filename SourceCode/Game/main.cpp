@@ -1,7 +1,5 @@
 #include <string>
 #include <iostream>
-#include <thread>
-#include <chrono>
 
 #include <SDL\SDL.h>
 
@@ -122,12 +120,6 @@ int main(int argc, char *argv[]) {
 
 		// swap the buffers to present the user the scene
 		w.SwapBuffers();
-
-		std::cout << "key: " << Keyboard::Instance().GetKey(SDL_SCANCODE_D) << std::endl;
-		std::cout << "key hold: " << Keyboard::Instance().GetKeyHold(SDL_SCANCODE_D) << std::endl;
-		std::cout << "key down: " << Keyboard::Instance().GetKeyDown(SDL_SCANCODE_D) << std::endl;
-		std::cout << "key up: " << Keyboard::Instance().GetKeyUp(SDL_SCANCODE_D) << std::endl;
-		std::this_thread::sleep_for(std::chrono::seconds(1));
 	}
 
 	// Delete our opengl context, destroy our window, and shutdown SDL
