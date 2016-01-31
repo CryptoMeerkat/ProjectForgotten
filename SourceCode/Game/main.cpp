@@ -1,9 +1,6 @@
 #include <string>
 #include <iostream>
 
-#include <thread>
-#include <chrono>
-
 #include <SDL\SDL.h>
 
 #define GLM_SWIZZLE
@@ -134,13 +131,6 @@ int main(int argc, char *argv[]) {
 
 		// swap the buffers to present the user the scene
 		w.SwapBuffers();
-
-		std::cout << std::endl;
-		std::cout << "x abs: " << Mouse::Instance().GetAbsolutePosition().x << std::endl;
-		std::cout << "y abs: " << Mouse::Instance().GetAbsolutePosition().y << std::endl;
-		std::cout << "x rel: " << Mouse::Instance().GetRelativePosition().x << std::endl;
-		std::cout << "y rel: " << Mouse::Instance().GetRelativePosition().y << std::endl;
-		std::this_thread::sleep_for(std::chrono::seconds(1));
 	}
 
 	// Delete our opengl context, destroy our window, and shutdown SDL
