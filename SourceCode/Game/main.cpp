@@ -1,6 +1,9 @@
 #include <string>
 #include <iostream>
 
+#include <thread>
+#include <chrono>
+
 #include <SDL\SDL.h>
 
 #define GLM_SWIZZLE
@@ -15,6 +18,7 @@
 #include "Window.h"
 #include "Renderer.h"
 #include "Keyboard.h"
+#include "Mouse.h"
 
 #include "Mesh.h"
 #include "Shader.h"
@@ -91,6 +95,10 @@ int main(int argc, char *argv[]) {
 	const Uint8* keystate = SDL_GetKeyboardState(&numKeys);
 	Keyboard::Instance().Initialise(keystate, numKeys);
 
+	// load mouse up
+	Mouse::Instance().Update(0);
+	SDL_SetRelativeMouseMode(SDL_TRUE); // mouse is bound within window
+
 	bool quit = false;
 
 	SDL_Event event;
@@ -109,17 +117,30 @@ int main(int argc, char *argv[]) {
 
 		}
 
-		Keyboard::Instance().Update();
-
 		// update the scene, AI, physics, etc.
-		r.UpdateScene((float) SDL_GetTicks() - msecLastUpdate);
+		float deltaTime = (float) SDL_GetTicks() - msecLastUpdate;
+		r.UpdateScene(deltaTime);
 		msecLastUpdate = SDL_GetTicks();
+
+		Keyboard::Instance().Update();
+		Mouse::Instance().Update(deltaTime);
+
+		if (Keyboard::Instance().GetKeyPressed(Keyboard::KEY_ESC)) {
+			quit = true;
+		}
 
 		// render the scene
 		r.RenderScene();
 
 		// swap the buffers to present the user the scene
 		w.SwapBuffers();
+
+		std::cout << std::endl;
+		std::cout << "x abs: " << Mouse::Instance().GetAbsolutePosition().x << std::endl;
+		std::cout << "y abs: " << Mouse::Instance().GetAbsolutePosition().y << std::endl;
+		std::cout << "x rel: " << Mouse::Instance().GetRelativePosition().x << std::endl;
+		std::cout << "y rel: " << Mouse::Instance().GetRelativePosition().y << std::endl;
+		std::this_thread::sleep_for(std::chrono::seconds(1));
 	}
 
 	// Delete our opengl context, destroy our window, and shutdown SDL

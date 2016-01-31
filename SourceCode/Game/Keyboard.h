@@ -190,6 +190,20 @@ class Keyboard {
 	static const SDL_Scancode KEY_Y = SDL_SCANCODE_Y;
 	static const SDL_Scancode KEY_Z = SDL_SCANCODE_Z;
 
+	static const SDL_Scancode KEY_ESC = SDL_SCANCODE_ESCAPE;
+	static const SDL_Scancode KEY_F1 = SDL_SCANCODE_F1;
+	static const SDL_Scancode KEY_F2 = SDL_SCANCODE_F2;
+	static const SDL_Scancode KEY_F3 = SDL_SCANCODE_F3;
+	static const SDL_Scancode KEY_F4 = SDL_SCANCODE_F4;
+	static const SDL_Scancode KEY_F5 = SDL_SCANCODE_F5;
+	static const SDL_Scancode KEY_F6 = SDL_SCANCODE_F6;
+	static const SDL_Scancode KEY_F7 = SDL_SCANCODE_F7;
+	static const SDL_Scancode KEY_F8 = SDL_SCANCODE_F8;
+	static const SDL_Scancode KEY_F9 = SDL_SCANCODE_F9;
+	static const SDL_Scancode KEY_F10 = SDL_SCANCODE_F10;
+	static const SDL_Scancode KEY_F11 = SDL_SCANCODE_F11;
+	static const SDL_Scancode KEY_F12 = SDL_SCANCODE_F12;
+
 
 	protected:
 
