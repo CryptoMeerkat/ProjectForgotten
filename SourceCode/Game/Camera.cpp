@@ -76,12 +76,6 @@ void Camera::UpdateCamera(float msec) {
 		position -= glm::mat3(glm::rotate(glm::mat4(1.0f), yaw, glm::vec3(0.0f, 1.0f, 0.0f))) * glm::vec3(-1.0f, 0.0f, 0.0f) * msec;
 	}
 
-	std::cout << std::endl;
-	std::cout << position.x << std::endl;
-	std::cout << position.y << std::endl;
-	std::cout << position.z << std::endl;
-	std::cout << std::endl;
-
 	//if (Window::GetKeyboard()->KeyDown(KEYBOARD_W)) {
 	//	position += qcam.ToMatrix() * Vector3(0.0f, 0.0f, -1.0f) * msec;
 	//}
