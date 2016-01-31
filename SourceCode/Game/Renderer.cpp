@@ -34,7 +34,6 @@ Renderer::Renderer(Window &window) {
 
 
 Renderer::~Renderer() {
-	delete triangle;
 	glDeleteProgram(currentShader->GetProgram());
 }
 

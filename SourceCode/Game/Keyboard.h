@@ -24,7 +24,7 @@ class Keyboard {
 	/// <summary>Destructor.</summary>
 	///-------------------------------------------------------------------------------------------------
 	~Keyboard() {
-		delete keystate;
+		// the key state should not be deleted, as SDL takes care of that memory
 		delete keystateHold;
 		delete keystateDown;
 		delete keystateUp;
