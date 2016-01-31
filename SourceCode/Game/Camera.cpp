@@ -1,5 +1,7 @@
 #include "Camera.h"
 #include "Keyboard.h"
+#include "Mouse.h"
+#include <glm/gtc/constants.hpp>
 
 Camera::Camera() {
 	yaw = 0.0f;
@@ -26,20 +28,20 @@ void Camera::UpdateCamera(float msec) {
 	msec /= (1000 / speed);
 
 
+	// fetch pitch and clamp to [PI, -PI]
+	pitch -= Mouse::Instance().GetRelativePosition().y;
+	pitch = glm::min(pitch, glm::pi<float>());
+	pitch = glm::max(pitch, -glm::pi<float>());
 
-	//pitch -= (Window::GetMouse()->GetRelativePosition().y);
-	//yaw -= (Window::GetMouse()->GetRelativePosition().x);
+	// fetch pitch and clamp to [PI, -PI]
+	yaw -= Mouse::Instance().GetRelativePosition().x;
+	if (yaw < 0) {
+		yaw += glm::two_pi<float>();
+	}
 
-	//pitch = min(pitch, 90.0f);
-	//pitch = max(pitch, -90.0f);
-
-	//if (yaw < 0) {
-	//	yaw += 360.0f;
-	//}
-
-	//if (yaw > 360.0f) {
-	//	yaw -= 360.0f;
-	//}
+	if (yaw > glm::two_pi<float>()) {
+		yaw -= glm::two_pi<float>();
+	}
 
 	//if (roll < 0) {
 	//	roll += 360.0f;
