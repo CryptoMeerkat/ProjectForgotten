@@ -49,30 +49,30 @@ void Camera::UpdateCamera(float msec) {
 	//	roll -= 360.0f;
 	//}
 
-	if (Keyboard::Instance().GetKeyDown(SDL_SCANCODE_E)) {
+	if (Keyboard::Instance().GetKeyPressed(Keyboard::KEY_E)) {
 		roll--;
 	}
 
-	if (Keyboard::Instance().GetKeyDown(SDL_SCANCODE_Q)) {
+	if (Keyboard::Instance().GetKeyPressed(Keyboard::KEY_Q)) {
 		roll--;
 	}
 
 	//Quaternion qcam = Quaternion::EulerAnglesToQuaternion(pitch, yaw, roll);
 	//Vector3 oldPosition = position;
 
-	if (Keyboard::Instance().GetKeyDown(SDL_SCANCODE_W)) {
+	if (Keyboard::Instance().GetKeyPressed(Keyboard::KEY_W)) {
 		position += glm::mat3(glm::rotate(glm::mat4(1.0f), yaw, glm::vec3(0.0f, 1.0f, 0.0f))) * glm::vec3(0.0f, 0.0f, -1.0f) * msec;
 	}
 
-	if (Keyboard::Instance().GetKeyDown(SDL_SCANCODE_S)) {
+	if (Keyboard::Instance().GetKeyPressed(Keyboard::KEY_S)) {
 		position -= glm::mat3(glm::rotate(glm::mat4(1.0f), yaw, glm::vec3(0.0f, 1.0f, 0.0f))) * glm::vec3(0.0f, 0.0f, -1.0f) * msec;
 	}
 
-	if (Keyboard::Instance().GetKeyDown(SDL_SCANCODE_A)) {
+	if (Keyboard::Instance().GetKeyPressed(Keyboard::KEY_A)) {
 		position += glm::mat3(glm::rotate(glm::mat4(1.0f), yaw, glm::vec3(0.0f, 1.0f, 0.0f))) * glm::vec3(-1.0f, 0.0f, 0.0f) * msec;
 	}
 
-	if (Keyboard::Instance().GetKeyDown(SDL_SCANCODE_D)) {
+	if (Keyboard::Instance().GetKeyPressed(Keyboard::KEY_D)) {
 		position -= glm::mat3(glm::rotate(glm::mat4(1.0f), yaw, glm::vec3(0.0f, 1.0f, 0.0f))) * glm::vec3(-1.0f, 0.0f, 0.0f) * msec;
 	}
 

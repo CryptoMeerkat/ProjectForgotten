@@ -104,13 +104,13 @@ class Keyboard {
 	}
 
 	///-------------------------------------------------------------------------------------------------
-	/// <summary>Gets a key state of the given key.</summary>
+	/// <summary>Returns whether the given key is either hold or down.</summary>
 	///
 	/// <param name="key">The SDL keycode.</param>
 	///
-	/// <returns>True if the key is currently down OR hold. This state is also called pressed.</returns>
+	/// <returns>True if the given key is either hold or down.</returns>
 	///-------------------------------------------------------------------------------------------------
-	inline bool GetKey(SDL_Scancode key) {
+	inline bool GetKeyPressed(SDL_Scancode key) {
 		return keystate[key] && ~0;
 	}
 
@@ -148,6 +148,47 @@ class Keyboard {
 	inline bool GetKeyUp(SDL_Scancode key) {
 		return keystateUp[key] && ~0;
 	}
+
+	///-------------------------------------------------------------------------------------------------
+	/// <summary>All key redefinitions from SDL to have them independant in the code from SDL keywords.</summary>
+	///-------------------------------------------------------------------------------------------------
+	static const SDL_Scancode KEY_0 = SDL_SCANCODE_0;
+	static const SDL_Scancode KEY_1 = SDL_SCANCODE_1;
+	static const SDL_Scancode KEY_2 = SDL_SCANCODE_2;
+	static const SDL_Scancode KEY_3 = SDL_SCANCODE_3;
+	static const SDL_Scancode KEY_4 = SDL_SCANCODE_4;
+	static const SDL_Scancode KEY_5 = SDL_SCANCODE_5;
+	static const SDL_Scancode KEY_6 = SDL_SCANCODE_6;
+	static const SDL_Scancode KEY_7 = SDL_SCANCODE_7;
+	static const SDL_Scancode KEY_8 = SDL_SCANCODE_8;
+	static const SDL_Scancode KEY_9 = SDL_SCANCODE_9;
+
+	static const SDL_Scancode KEY_A = SDL_SCANCODE_A;
+	static const SDL_Scancode KEY_B = SDL_SCANCODE_B;
+	static const SDL_Scancode KEY_C = SDL_SCANCODE_C;
+	static const SDL_Scancode KEY_D = SDL_SCANCODE_D;
+	static const SDL_Scancode KEY_E = SDL_SCANCODE_E;
+	static const SDL_Scancode KEY_F = SDL_SCANCODE_F;
+	static const SDL_Scancode KEY_G = SDL_SCANCODE_G;
+	static const SDL_Scancode KEY_H = SDL_SCANCODE_H;
+	static const SDL_Scancode KEY_I = SDL_SCANCODE_I;
+	static const SDL_Scancode KEY_J = SDL_SCANCODE_J;
+	static const SDL_Scancode KEY_K = SDL_SCANCODE_K;
+	static const SDL_Scancode KEY_L = SDL_SCANCODE_L;
+	static const SDL_Scancode KEY_M = SDL_SCANCODE_M;
+	static const SDL_Scancode KEY_N = SDL_SCANCODE_N;
+	static const SDL_Scancode KEY_O = SDL_SCANCODE_O;
+	static const SDL_Scancode KEY_P = SDL_SCANCODE_P;
+	static const SDL_Scancode KEY_Q = SDL_SCANCODE_Q;
+	static const SDL_Scancode KEY_R = SDL_SCANCODE_R;
+	static const SDL_Scancode KEY_S = SDL_SCANCODE_S;
+	static const SDL_Scancode KEY_T = SDL_SCANCODE_T;
+	static const SDL_Scancode KEY_U = SDL_SCANCODE_U;
+	static const SDL_Scancode KEY_V = SDL_SCANCODE_V;
+	static const SDL_Scancode KEY_W = SDL_SCANCODE_W;
+	static const SDL_Scancode KEY_X = SDL_SCANCODE_X;
+	static const SDL_Scancode KEY_Y = SDL_SCANCODE_Y;
+	static const SDL_Scancode KEY_Z = SDL_SCANCODE_Z;
 
 
 	protected:
